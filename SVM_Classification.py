@@ -15,6 +15,7 @@ class SVM(object):
         self.test_labels = test_labels
         self.sensitivity = []
         self.general_result = []
+        self.precision = []
 
     def perform(self):
         counter = 0
@@ -34,16 +35,23 @@ class SVM(object):
 
                     true_positives = 0
                     false_negatives = 0
+                    false_positives = 0
                     for ideal, predicted in zip(self.test_labels, res):
                         if ideal == predicted == 1:
                             true_positives += 1
                         if ideal == 0 and predicted == 1:
                             false_negatives += 1
+                        if ideal == 1 and predicted == 0:
+                            false_positives += 1
 
-                    if true_positives + false_negatives > 0:
+                    if true_positives or false_negatives:
                         self.sensitivity.append(100 * true_positives / (true_positives + false_negatives))
                     else:
                         self.sensitivity.append(0)
+                    if true_positives or false_negatives:
+                        self.precision.append(100 * true_positives / (true_positives + false_positives))
+                    else:
+                        self.precision.append(0)
                     self.general_result.append(100 * clf.score(self.test_data, self.test_labels))
 
                     if k == 'linear' or k == 'rbf':
@@ -51,14 +59,15 @@ class SVM(object):
                 if k == 'linear':
                     break
 
-    def get_sensitivity(self):
+    def get_sensitivity_and_precision(self):
         counter = -1
         for k in self.kernels:
             for g in self.gammas:
                 for c in self.coefs:
                     counter += 1
                     print('Kernel: ' + str(k) + ' Gamma: ' + str(g) + ' Coef0: ' + str(c)
-                          + ' Sensitivity: ' + str(self.sensitivity[counter]) + '%')
+                          + ' Sensitivity: ' + "%.2f" % self.sensitivity[counter] + "%"
+                          + ' Precision: ' + "%.2f" % self.precision[counter] + '%')
 
                     if k == 'linear' or k == 'rbf':
                         break
@@ -73,7 +82,7 @@ class SVM(object):
                 for c in self.coefs:
                     counter += 1
                     print('Kernel: ' + str(k) + ' Gamma: ' + str(g) + ' Coef0: ' + str(c)
-                          + ' General Result: ' + str(self.general_result[counter]) + '%')
+                          + ' General Result: ' "%.2f" % self.general_result[counter] + '%')
 
                     if k == 'linear' or k == 'rbf':
                         break
