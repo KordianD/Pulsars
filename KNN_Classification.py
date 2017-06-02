@@ -5,40 +5,45 @@
 
 import logging
 from sklearn.neighbors import KNeighborsClassifier
-import data
 
-train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
+class KNN(object):
+    def __init__(self, train_data, test_data, train_labels, test_labels, distance =[], n_neighbours =[], weights=[]):
+        self.train_data = train_data
+        self.train_labels = train_labels
+        self.test_data = test_data
+        self.test_labels = test_labels
+        self.distance = distance
+        self.n_neighbours = n_neighbours
+        self.weights = weights
+        self.sensitivity = []
+        self.general_result = []
 
-distance = ['euclidean', 'cityblock', 'minkowski']
-n_neighbours = [1, 3, 5, 7]
-weights = ['uniform', 'distance']
+    def perform(self):
+        counter = 0
+        for d in self.distance:
+            for n in self.n_neighbours:
+                for w in self.weights:
+                    counter += 1
+                    logging.info(' Computing KNN ... '
+                                 + str(int(100*counter / (len(self.distance) * len(self.n_neighbours) * len(self.weights))))
+                                 + '% done')
+                    clf = KNeighborsClassifier(n_neighbors=n, metric=d, weights=w)
+                    clf.fit(self.train_data, self.train_labels)
+                    res = clf.predict(self.test_data)
 
-knn_sensitivity = []
-general_result = []
-counter = 0
-for d in distance:
-    for n in n_neighbours:
-        for w in weights:
-            counter += 1
-            logging.info(' Computing KNN ... '
-                         + str(int(100 * counter / (len(distance) * len(n_neighbours) * len(weights))))
-                         + '% done')
-            clf = KNeighborsClassifier(n_neighbors=n, metric=d, weights=w)
-            clf.fit(train_data, train_labels)
-            res = clf.predict(test_data)
+                    TP = 0
+                    FN = 0
+                    for g, p in zip(self.test_labels, res):
+                        if g == p == 1:
+                            TP += 1
+                        if g == 0 and p == 1:
+                            FN += 1
 
-            TP = 0
-            FN = 0
-            for g, p in zip(test_labels, res):
-                if g == p == 1:
-                    TP += 1
-                if g == 0 and p == 1:
-                    FN += 1
+                    self.sensitivity.append(100 * TP / (TP + FN))
+                    self.general_result.append(100 * clf.score(self.test_data, self.test_labels))
 
-            knn_sensitivity.append(100*TP/(TP + FN))
-            general_result.append(100*clf.score(test_data, test_labels))
+    def get_sensitivity(self):
+            return self.knn_sensitivity;
 
-
-def get_results():
-    " It returns general_data and sensitivity"
-    return general_result, knn_sensitivity
+    def get_general_results(self):
+            return self.general_result

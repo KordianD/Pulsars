@@ -2,7 +2,7 @@
 
 from SVM_Classification import SVM
 import data
-
+from KNN_Classification import KNN
 
 train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
 
@@ -18,4 +18,18 @@ SVM_classification = SVM(train_data, test_data, train_labels, test_labels,
 SVM_classification.perform()
 SVM_classification.get_sensitivity()
 SVM_classification.get_general_result()
+
+
+
+distance = ['euclidean', 'cityblock', 'minkowski']
+n_neighbours = [1, 3, 5, 7]
+weights = ['uniform', 'distance']
+
+KNN_classification = KNN(train_data, test_data, train_labels, test_labels,
+                         distance, n_neighbours, weights)
+
+KNN_classification.perform()
+
+
+
 
