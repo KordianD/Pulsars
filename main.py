@@ -3,6 +3,7 @@
 from SVM_Classification import SVM
 import data
 from KNN_Classification import KNN
+from Log_Regression import Log_Regression
 
 train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
 
@@ -29,6 +30,13 @@ KNN_classification = KNN(train_data, test_data, train_labels, test_labels,
                          distance, n_neighbours, weights)
 
 KNN_classification.perform()
+
+
+LR_classification = Log_Regression(train_data, test_data, train_labels, test_labels)
+LR_classification.perform()
+
+
+
 
 
 

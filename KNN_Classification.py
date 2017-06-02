@@ -43,7 +43,7 @@ class KNN(object):
                     self.general_result.append(100 * clf.score(self.test_data, self.test_labels))
 
     def get_sensitivity(self):
-            return self.knn_sensitivity;
+            return self.knn_sensitivity
 
     def get_general_results(self):
             return self.general_result
