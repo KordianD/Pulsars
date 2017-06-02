@@ -8,7 +8,7 @@ data = pandas.read_csv("HTRU_2.csv", header=None)
 data = np.array(data)
 
 classes = np.array(data[:, 8].astype(float))
-dataset = np.array(data[:, 1:7].astype(float))
+dataset = np.array(data[:, 0:8].astype(float))
 train_data_length = int(0.7*samples)
 test_data_length = samples - train_data_length
 
