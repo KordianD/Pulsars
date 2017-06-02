@@ -1,12 +1,8 @@
 # We will perform machine learning on pulsars data
 
 from SVM_Classification import SVM
-#import KNN_Classification
 import data
-#general_results, knn_sensitivity = KNN_Classification.get_results()
 
-#print(general_results)
-#print(knn_sensitivity)
 
 train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
 
