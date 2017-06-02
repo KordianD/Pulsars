@@ -18,9 +18,8 @@ train_labels = classes[:train_data_length]
 test_labels = classes[train_data_length:]
 
 
-
 def get_pulsar_data():
-    ''' It returns train_data, test_data, train_labels, test_labels'''
+    """ It returns train_data, test_data, train_labels, test_labels """
     return train_data, test_data, train_labels, test_labels
 
 def get_number_of_samples():

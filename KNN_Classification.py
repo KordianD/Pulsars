@@ -3,8 +3,7 @@
 # with 2 diffrent metric : euclidean, cityblock, minkowski
 # Also we will use 2 different "weights" functions : uniform and weights
 
-import numpy as np
-import pandas
+import logging
 from sklearn.neighbors import KNeighborsClassifier
 import data
 
@@ -16,11 +15,14 @@ weights = ['uniform', 'distance']
 
 knn_sensitivity = []
 general_result = []
-
+counter = 0
 for d in distance:
     for n in n_neighbours:
         for w in weights:
-
+            counter += 1
+            logging.info(' Computing KNN ... '
+                         + str(int(100 * counter / (len(distance) * len(n_neighbours) * len(weights))))
+                         + '% done')
             clf = KNeighborsClassifier(n_neighbors=n, metric=d, weights=w)
             clf.fit(train_data, train_labels)
             res = clf.predict(test_data)
