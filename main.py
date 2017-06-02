@@ -20,6 +20,7 @@ SVM_classification.get_sensitivity_and_precision()
 SVM_classification.get_general_result()
 
 
+
 distance = ['euclidean', 'cityblock', 'minkowski']
 n_neighbours = [1, 3, 5, 7]
 weights = ['uniform', 'distance']
