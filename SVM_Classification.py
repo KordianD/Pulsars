@@ -59,28 +59,14 @@ class SVM(object):
                 if k == 'linear':
                     break
 
-    def get_sensitivity(self):
+    def get_sensitivity_and_precision(self):
         counter = -1
         for k in self.kernels:
             for g in self.gammas:
                 for c in self.coefs:
                     counter += 1
                     print('Kernel: ' + str(k) + ' Gamma: ' + str(g) + ' Coef0: ' + str(c)
-                          + ' Sensitivity: ' + "%.2f" % self.sensitivity[counter] + "%")
-
-                    if k == 'linear' or k == 'rbf':
-                        break
-                if k == 'linear':
-                    break
-        print("-" * 70)
-
-    def get_precision(self):
-        counter = -1
-        for k in self.kernels:
-            for g in self.gammas:
-                for c in self.coefs:
-                    counter += 1
-                    print('Kernel: ' + str(k) + ' Gamma: ' + str(g) + ' Coef0: ' + str(c)
+                          + ' Sensitivity: ' + "%.2f" % self.sensitivity[counter] + "%"
                           + ' Precision: ' + "%.2f" % self.precision[counter] + '%')
 
                     if k == 'linear' or k == 'rbf':
