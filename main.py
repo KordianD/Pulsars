@@ -17,8 +17,8 @@ SVM_classification = SVM(train_data, test_data, train_labels, test_labels,
                          gammas_for_SVM,
                          coefs_for_SVM)
 SVM_classification.perform()
-SVM_classification.get_sensitivity_and_precision()
-SVM_classification.get_general_result()
+print(SVM_classification.get_sensitivity())
+
 
 
 
