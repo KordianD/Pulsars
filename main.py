@@ -23,16 +23,24 @@ SVM_classification.get_general_result()
 
 
 distance = ['euclidean', 'cityblock', 'minkowski']
-n_neighbours = [1, 3, 5, 7]
+n_neighbours = [1, 2, 3, 5]
 weights = ['uniform', 'distance']
 KNN_classification = KNN(train_data, test_data, train_labels, test_labels,
                          distance, n_neighbours, weights)
 KNN_classification.perform()
+print('\nKNN\n')
+print(KNN_classification.get_general_results())
+print('\n')
+print(KNN_classification.get_sensitivity())
 
 
 LR_classification = Log_Regression(train_data, test_data, train_labels, test_labels)
 LR_classification.perform()
-
+print('\nLN')
+print(LR_classification.get_general_results())
+print('\n')
+print(LR_classification.get_sensitivity())
+print('\n')
 
 number_of_classes = 2
 number_of_hidden_units = [2, 5, 10, 20]
@@ -42,6 +50,7 @@ NN_classification = NN(train_data, test_data, train_labels, test_labels,
                        number_of_layers, number_of_hidden_units, number_of_classes)
 
 NN_classification.perform()
+print('\n NETWORK \n')
 print(NN_classification.get_general_results())
 print(NN_classification.get_sensitivity())
 

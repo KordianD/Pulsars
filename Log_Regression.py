@@ -26,7 +26,11 @@ class Log_Regression(object):
             if g == 0 and p == 1:
                 FN += 1
 
-        self.sensitivity.append(100 * TP / (TP + FN))
+        if (TP + FN == 0):
+            self.sensitivity.append(0)
+        else:
+            self.sensitivity.append(100 * TP / (TP + FN))
+
         self.general_result.append(100 * clf.score(self.test_data, self.test_labels))
 
     def get_sensitivity(self):

@@ -6,11 +6,15 @@ import pandas
 samples = 17898
 data = pandas.read_csv("HTRU_2.csv", header=None)
 data = np.array(data)
+np.random.shuffle(data)
 
 classes = np.array(data[:, 8].astype(float))
 dataset = np.array(data[:, 0:8].astype(float))
+dataset = (dataset - np.mean(dataset, axis=0)) / np.std(dataset, axis=0)
+
 train_data_length = int(0.7*samples)
 test_data_length = samples - train_data_length
+
 
 train_data = dataset[:train_data_length]
 test_data = dataset[train_data_length:]
