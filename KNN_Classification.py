@@ -5,7 +5,7 @@
 
 import logging
 from sklearn.neighbors import KNeighborsClassifier
-from Statistics import Statistics
+from Statistics import get_performance
 
 class KNN(object):
     def __init__(self, train_data, test_data, train_labels, test_labels, distance =[], n_neighbours =[], weights=[]):
@@ -18,8 +18,9 @@ class KNN(object):
         self.weights = weights
         self.sensitivity = []
         self.specificity = []
+        self.precision = []
         self.general_result = []
-        self.statistics = Statistics()
+
 
     def perform(self):
         counter = 0
@@ -34,17 +35,21 @@ class KNN(object):
                     clf.fit(self.train_data, self.train_labels)
                     res = clf.predict(self.test_data)
 
-                    self.statistics.perform(self.test_labels, res)
-                    self.sensitivity.append(self.statistics.get_sensitivity())
-                    self.specificity.append(self.statistics.get_specificity())
+                    performance = get_performance(self.test_labels, res)
+                    self.sensitivity.append(performance['sensitivity'])
+                    self.specificity.append(performance['specificity'])
+                    self.precision.append(performance['precision'])
 
-                    self.general_result.append(100 * clf.score(self.test_data, self.test_labels))
+                    self.general_result = 100 * clf.score(self.test_data, self.test_labels)
 
     def get_sensitivity(self):
             return self.sensitivity
 
     def get_specificity(self):
         return self.specificity
+
+    def get_precision(self):
+        return self.precision
 
     def get_general_results(self):
         return self.general_result

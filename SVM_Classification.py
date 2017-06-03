@@ -1,6 +1,6 @@
 from sklearn.svm import SVC
 import logging
-from Statistics import Statistics
+from Statistics import get_performance
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
@@ -18,7 +18,7 @@ class SVM(object):
         self.specificity = []
         self.general_result = []
         self.precision = []
-        self.statistics = Statistics()
+
 
     def perform(self):
         counter = 0
@@ -36,9 +36,12 @@ class SVM(object):
                     clf.fit(self.train_data, self.train_labels)
                     res = clf.predict(self.test_data)
 
-                    self.statistics.perform(self.test_labels, res)
-                    self.sensitivity.append(self.statistics.get_sensitivity())
-                    self.specificity.append(self.statistics.get_specificity())
+                    performance = get_performance(self.test_labels, res)
+                    self.sensitivity.append(performance['sensitivity'])
+                    self.specificity.append(performance['specificity'])
+                    self.precision.append(performance['precision'])
+
+                    self.general_result = 100 * clf.score(self.test_data, self.test_labels)
 
                     if k == 'linear' or k == 'rbf':
                         break
@@ -50,6 +53,9 @@ class SVM(object):
 
     def get_specificity(self):
         return self.specificity
+
+    def get_precision(self):
+        return self.precision
 
     def get_general_results(self):
         return self.general_result

@@ -1,5 +1,5 @@
 import tensorflow as tf
-from Statistics import Statistics
+from Statistics import get_performance
 
 class NN(object):
 
@@ -14,8 +14,9 @@ class NN(object):
         self.feature_columns = [tf.contrib.layers.real_valued_column("", dimension=len(self.train_data[0]))]
         self.sensitivity = []
         self.specificity = []
+        self.precision = []
         self.general_result = []
-        self.statistics = Statistics()
+
 
     def get_train_inputs(self):
         x = tf.constant(self.train_data)
@@ -50,10 +51,11 @@ class NN(object):
 
                 res = classifier.predict(input_fn=self.get_test_inputs)
 
+                performance = get_performance(self.test_labels, res)
+                self.sensitivity.append(performance['sensitivity'])
+                self.specificity.append(performance['specificity'])
+                self.precision.append(performance['precision'])
 
-                self.statistics.perform(self.test_labels, res)
-                self.sensitivity.append(self.statistics.get_sensitivity())
-                self.specificity.append(self.statistics.get_specificity())
                 self.general_result.append(100 * classifier.evaluate(input_fn=self.get_test_inputs,
                                        steps=1)["accuracy"])
 

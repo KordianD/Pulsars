@@ -5,6 +5,7 @@ from KNN_Classification import KNN
 from Log_Regression import Log_Regression
 from NN import NN
 import data
+import pandas as pd
 
 train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
 
@@ -18,6 +19,8 @@ SVM_classification = SVM(train_data, test_data, train_labels, test_labels,
                          coefs_for_SVM)
 SVM_classification.perform()
 print(SVM_classification.get_sensitivity())
+print(SVM_classification.get_specificity())
+print(SVM_classification.get_precision())
 
 
 
@@ -41,7 +44,7 @@ print(LR_classification.get_general_results())
 print('\n')
 print(LR_classification.get_sensitivity())
 print('\n')
-
+'''
 number_of_classes = 2
 number_of_hidden_units = [2, 5, 10, 20]
 number_of_layers = [1, 2, 5, 10]
@@ -53,11 +56,16 @@ NN_classification.perform()
 print('\n NETWORK \n')
 print(NN_classification.get_general_results())
 print(NN_classification.get_sensitivity())
+'''
 
 
+data = pd.DataFrame([
+    ["SVM:"], SVM_classification.get_sensitivity(), SVM_classification.get_precision(), SVM_classification.get_specificity(),
+    ["KNN:"], KNN_classification.get_sensitivity(), KNN_classification.get_precision(), KNN_classification.get_specificity(),
+    ["LR:"], [LR_classification.get_sensitivity()], [LR_classification.get_precision()], [LR_classification.get_specificity()]
+        ])
 
-
-
+data.to_csv("data.csv", index=False, header=False)
 
 
 

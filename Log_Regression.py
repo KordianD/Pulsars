@@ -1,6 +1,6 @@
 import logging
 from sklearn.linear_model import LogisticRegression
-from Statistics import Statistics
+from Statistics import get_performance
 
 class Log_Regression(object):
     def __init__(self, train_data, test_data, train_labels, test_labels):
@@ -10,8 +10,9 @@ class Log_Regression(object):
         self.test_labels = test_labels
         self.sensitivity = 0
         self.specificity = 0
+        self.precision = 0
         self.general_result = 0
-        self.statistics = Statistics()
+
 
     def perform(self):
 
@@ -20,9 +21,10 @@ class Log_Regression(object):
         clf.fit(self.train_data, self.train_labels)
         res = clf.predict(self.test_data)
 
-        self.statistics.perform(self.test_labels, res)
-        self.sensitivity = self.statistics.get_sensitivity()
-        self.specificity = self.statistics.get_specificity()
+        performance = get_performance(self.test_labels, res)
+        self.sensitivity = performance['sensitivity']
+        self.specificity = performance['specificity']
+        self.precision = performance['precision']
 
         self.general_result = 100 * clf.score(self.test_data, self.test_labels)
 
@@ -31,6 +33,9 @@ class Log_Regression(object):
 
     def get_specificity(self):
         return self.specificity
+
+    def get_precision(self):
+        return self.precision
 
     def get_general_results(self):
         return self.general_result
