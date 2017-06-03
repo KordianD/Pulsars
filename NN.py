@@ -1,6 +1,7 @@
 import tensorflow as tf
 from Statistics import get_performance
 
+
 class NN(object):
 
     def __init__(self, train_data, test_data, train_labels, test_labels, layers, hidden_units, classes):
@@ -17,12 +18,11 @@ class NN(object):
         self.precision = []
         self.general_result = []
 
-
     def get_train_inputs(self):
         x = tf.constant(self.train_data)
         y = tf.constant(self.train_labels)
 
-        return x,y
+        return x, y
 
     def get_test_inputs(self):
         x = tf.constant(self.test_data)
@@ -31,13 +31,16 @@ class NN(object):
         return x, y
 
     def get_sensitivity(self):
-            return self.sensitivity
+        return self.sensitivity
+
+    def get_precision(self):
+        return self.precision
 
     def get_specificity(self):
         return self.specificity
 
     def get_general_results(self):
-            return self.general_result
+        return self.general_result
 
     def perform(self):
         feature_columns = [tf.contrib.layers.real_valued_column("", dimension=len(self.train_data[0]))]

@@ -8,9 +8,11 @@ from Random_Forest import RFC
 import data
 import pandas as pd
 
+
 train_data, test_data, train_labels, test_labels = data.get_pulsar_data()
 
-'''
+
+
 kernels_for_SVM = ['linear', 'poly', 'rbf', 'sigmoid']
 gammas_for_SVM = [0.000001, 0.0001, 0.001]
 coefs_for_SVM = [-1.0, 1.0, 0.0]
@@ -22,7 +24,6 @@ SVM_classification.perform()
 print(SVM_classification.get_sensitivity())
 print(SVM_classification.get_specificity())
 print(SVM_classification.get_precision())
-
 
 
 
@@ -39,7 +40,6 @@ print(KNN_classification.get_sensitivity())
 
 
 
-
 LR_classification = Log_Regression(train_data, test_data, train_labels, test_labels)
 LR_classification.perform()
 print('\nLN')
@@ -47,8 +47,6 @@ print(LR_classification.get_general_results())
 print('\n')
 print(LR_classification.get_sensitivity())
 print('\n')
-
-
 
 
 
@@ -61,7 +59,6 @@ NN_classification.perform()
 print('\n NETWORK \n')
 print(NN_classification.get_general_results())
 print(NN_classification.get_sensitivity())
-'''
 
 
 
@@ -74,14 +71,16 @@ print(RFC_classification.get_sensitivity())
 print(RFC_classification.get_precision())
 print(RFC_classification.get_specificity())
 
-'''
+
+
 data = pd.DataFrame([
     ["SVM:"], SVM_classification.get_sensitivity(), SVM_classification.get_precision(), SVM_classification.get_specificity(),
     ["KNN:"], KNN_classification.get_sensitivity(), KNN_classification.get_precision(), KNN_classification.get_specificity(),
+    ["NN:"], NN_classification.get_sensitivity(), NN_classification.get_precision(), NN_classification.get_specificity(),
+    ["RF:"], RFC_classification.get_sensitivity(), RFC_classification.get_precision(), RFC_classification.get_specificity(),
     ["LR:"], [LR_classification.get_sensitivity()], [LR_classification.get_precision()], [LR_classification.get_specificity()]
         ])
-
 data.to_csv("data.csv", index=False, header=False)
-'''
+
 
 
