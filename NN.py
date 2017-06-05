@@ -1,5 +1,6 @@
 import tensorflow as tf
 from Statistics import get_performance
+import numpy as np
 
 
 class NN(object):
@@ -16,7 +17,6 @@ class NN(object):
         self.sensitivity = []
         self.specificity = []
         self.precision = []
-        self.general_result = []
 
     def get_train_inputs(self):
         x = tf.constant(self.train_data)
@@ -39,8 +39,10 @@ class NN(object):
     def get_specificity(self):
         return self.specificity
 
-    def get_general_results(self):
-        return self.general_result
+    def get_fscore(self):
+        return 2 * (np.array(self.precision) * np.array(self.sensitivity)) \
+               / (np.array(self.precision) + np.array(self.sensitivity))
+
 
     def perform(self):
         feature_columns = [tf.contrib.layers.real_valued_column("", dimension=len(self.train_data[0]))]

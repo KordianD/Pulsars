@@ -3,7 +3,6 @@
 
 def get_performance(labels, predictions):
     TP, FN, FP, TN = 0, 0, 0, 0
-    precision, sensitivity, specifity = 0, 0, 0
     for g, p in zip(labels, predictions):
         if g == p == 1:
             TP += 1

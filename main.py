@@ -67,9 +67,7 @@ depths = [10, 50, 100]
 RFC_classification = RFC(train_data, test_data, train_labels, test_labels,
                          trees, depths)
 RFC_classification.perform()
-print(RFC_classification.get_sensitivity())
-print(RFC_classification.get_precision())
-print(RFC_classification.get_specificity())
+print(RFC_classification.get_fscore())
 data.show_data_in_2_dimensions(15000)
 
 '''

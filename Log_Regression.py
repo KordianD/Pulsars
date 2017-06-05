@@ -11,7 +11,6 @@ class Log_Regression(object):
         self.sensitivity = 0
         self.specificity = 0
         self.precision = 0
-        self.general_result = 0
 
 
     def perform(self):
@@ -37,5 +36,6 @@ class Log_Regression(object):
     def get_precision(self):
         return self.precision
 
-    def get_general_results(self):
-        return self.general_result
+    def get_fscore(self):
+        return 2 * (self.precision * self.sensitivity) / (self.precision + self.sensitivity)
+

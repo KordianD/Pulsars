@@ -1,6 +1,7 @@
 from sklearn.svm import SVC
 import logging
 from Statistics import get_performance
+import numpy as np
 logging.basicConfig(format='%(levelname)s:%(message)s', level=logging.DEBUG)
 
 
@@ -16,7 +17,6 @@ class SVM(object):
         self.test_labels = test_labels
         self.sensitivity = []
         self.specificity = []
-        self.general_result = []
         self.precision = []
 
 
@@ -57,5 +57,8 @@ class SVM(object):
     def get_precision(self):
         return self.precision
 
-    def get_general_results(self):
-        return self.general_result
+    def get_fscore(self):
+        return 2 * (np.array(self.precision) * np.array(self.sensitivity)) \
+               / (np.array(self.precision) + np.array(self.sensitivity))
+
+
