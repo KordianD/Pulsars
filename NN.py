@@ -39,9 +39,6 @@ class NN(object):
     def get_specificity(self):
         return self.specificity
 
-    def get_fscore(self):
-        return 2 * (np.array(self.precision) * np.array(self.sensitivity)) \
-               / (np.array(self.precision) + np.array(self.sensitivity))
 
 
     def perform(self):
@@ -61,8 +58,7 @@ class NN(object):
                 self.specificity.append(performance['specificity'])
                 self.precision.append(performance['precision'])
 
-                self.general_result.append(100 * classifier.evaluate(input_fn=self.get_test_inputs,
-                                       steps=1)["accuracy"])
+
 
 
 

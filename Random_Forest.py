@@ -35,7 +35,6 @@ class RFC(object):
                 self.specificity.append(performance['specificity'])
                 self.precision.append(performance['precision'])
 
-                self.general_result = 100 * clf.score(self.test_data, self.test_labels)
 
     def get_sensitivity(self):
         return self.sensitivity
@@ -46,8 +45,7 @@ class RFC(object):
     def get_precision(self):
         return self.precision
 
-    def get_fscore(self):
-        return 2 * (np.array(self.precision) * np.array(self.sensitivity)) \
-               / (np.array(self.precision) + np.array(self.sensitivity))
+
+
 
 

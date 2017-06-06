@@ -25,7 +25,6 @@ class Log_Regression(object):
         self.specificity = performance['specificity']
         self.precision = performance['precision']
 
-        self.general_result = 100 * clf.score(self.test_data, self.test_labels)
 
     def get_sensitivity(self):
         return self.sensitivity
@@ -36,6 +35,4 @@ class Log_Regression(object):
     def get_precision(self):
         return self.precision
 
-    def get_fscore(self):
-        return 2 * (self.precision * self.sensitivity) / (self.precision + self.sensitivity)
 

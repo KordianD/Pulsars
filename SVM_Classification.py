@@ -41,8 +41,6 @@ class SVM(object):
                     self.specificity.append(performance['specificity'])
                     self.precision.append(performance['precision'])
 
-                    self.general_result = 100 * clf.score(self.test_data, self.test_labels)
-
                     if k == 'linear' or k == 'rbf':
                         break
                 if k == 'linear':
@@ -57,8 +55,5 @@ class SVM(object):
     def get_precision(self):
         return self.precision
 
-    def get_fscore(self):
-        return 2 * (np.array(self.precision) * np.array(self.sensitivity)) \
-               / (np.array(self.precision) + np.array(self.sensitivity))
 
 
